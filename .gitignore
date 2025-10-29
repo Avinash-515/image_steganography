@@ -1,1 +1,17 @@
+# Python / Flask
+__pycache__/
+venv/
+*.pyc
+
+# Node.js / React / Hardhat
+node_modules/
+build/
+cache/
+artifacts/
+
+# Environment
 .env
+
+# OS / Tools
+.DS_Store
+.sfdx/

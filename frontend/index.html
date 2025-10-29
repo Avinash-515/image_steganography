@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔐 Python Blockchain Steganography</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔐 Blockchain Image Steganography</h1>
+            <p>Hide secret data in images using Python backend, store on IPFS, and verify on Ethereum blockchain</p>
+            <div class="status-bar">
+                <span id="ipfs-status" class="status-indicator">🔄 Checking IPFS...</span>
+                <span id="blockchain-status" class="status-indicator">🔄 Checking Blockchain...</span>
+            </div>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab('hide')">Hide Data</button>
+            <button class="tab-button" onclick="switchTab('extract')">Extract Data</button>
+            <button class="tab-button" onclick="switchTab('verify')">Verify Image</button>
+            <button class="tab-button" onclick="switchTab('analytics')">Analytics</button>
+        </div>
+
+        <!-- Hide Data Tab -->
+        <div id="hide" class="tab-content active">
+            <div class="card">
+                <h2>🖼️ Hide Secret Data in Image</h2>
+                <form id="hideForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="image">Select Image:</label>
+                        <input type="file" id="image" name="image" accept="image/*" required>
+                        <div class="file-info" id="imageInfo"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="secretData">Secret Data:</label>
+                        <textarea id="secretData" name="secretData" rows="4" 
+                                  placeholder="Enter your secret message here..." required></textarea>
+                        <div class="char-counter">
+                            <span id="charCount">0</span> characters
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password (Optional):</label>
+                        <input type="password" id="password" name="password" 
+                               placeholder="Leave empty for no encryption">
+                        <small>Adding a password will encrypt your data before hiding</small>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        🔒 Hide Data & Store on Blockchain
+                    </button>
+                </form>
+                
+                <div id="hideResult" class="result-container"></div>
+            </div>
+        </div>
+
+        <!-- Extract Data Tab -->
+        <div id="extract" class="tab-content">
+            <div class="card">
+                <h2>🔓 Extract Secret Data</h2>
+                <form id="extractForm">
+                    <div class="form-group">
+                        <label for="imageId">Image ID:</label>
+                        <input type="text" id="imageId" name="imageId" 
+                               placeholder="Enter the Image ID (e.g., IMG-1234567890-abcdef1234567890)" required
+                               pattern="IMG-[0-9]{10}-[a-f0-9]{16}" title="Must be in format IMG-{timestamp}-{hex}">
+                        <small>This is the unique ID you received when hiding data</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="extractPassword">Password (if encrypted):</label>
+                        <input type="password" id="extractPassword" name="password" 
+                               placeholder="Enter password if data was encrypted">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-secondary">
+                        🔓 Extract Data from Blockchain
+                    </button>
+                </form>
+                
+                <div id="extractResult" class="result-container"></div>
+            </div>
+        </div>
+
+        <!-- Verify Tab -->
+        <div id="verify" class="tab-content">
+            <div class="card">
+                <h2>✅ Verify Image Ownership</h2>
+                <form id="verifyForm">
+                    <div class="form-group">
+                        <label for="verifyImageId">Image ID:</label>
+                        <input type="text" id="verifyImageId" name="imageId" 
+                               placeholder="Enter Image ID to verify" required
+                               pattern="IMG-[0-9]{10}-[a-f0-9]{16}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="userAddress">Ethereum Address:</label>
+                        <input type="text" id="userAddress" name="userAddress" 
+                               placeholder="0x742F35CC3E87c6C7f32FD4B1F1d8dC5a2d7D9B8C" required
+                               pattern="0x[a-fA-F0-9]{40}">
+                        <small>The Ethereum address to verify ownership against</small>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-info">
+                        🔍 Verify Ownership
+                    </button>
+                </form>
+                
+                <div id="verifyResult" class="result-container"></div>
+            </div>
+        </div>
+
+        <!-- Analytics Tab -->
+        <div id="analytics" class="tab-content">
+            <div class="card">
+                <h2>📊 System Analytics</h2>
+                
+                <div class="analytics-section">
+                    <h3>System Health</h3>
+                    <div id="systemHealth">
+                        <div class="loading">Loading system status...</div>
+                    </div>
+                </div>
+                
+                <div class="analytics-section">
+                    <h3>User Images</h3>
+                    <div class="form-group">
+                        <label for="analyticsAddress">Enter Ethereum Address:</label>
+                        <input type="text" id="analyticsAddress" 
+                               placeholder="0x742F35CC3E87c6C7f32FD4B1F1d8dC5a2d7D9B8C"
+                               pattern="0x[a-fA-F0-9]{40}">
+                        <button onclick="getUserAnalytics()" class="btn btn-info">
+                            📈 Get User Analytics
+                        </button>
+                    </div>
+                    <div id="userAnalytics"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>🐍 Python Backend • ⛓️ Ethereum Sepolia • 🌐 IPFS • 🔒 AES Encryption</p>
+        <p>Built for educational purposes - Zero cost implementation</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
